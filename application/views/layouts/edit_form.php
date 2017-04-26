@@ -80,4 +80,5 @@
     </div>
 </div>
 <input class="button-default" type="submit" value="Save changes" name="submit-edit" id="submit-edit">
+<?php echo anchor(site_url('profile'),'Back','class="button back-link"'); ?>
 <?php form_close();?>
