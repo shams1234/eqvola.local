@@ -94,24 +94,8 @@ class Users_Controller extends CI_Controller
             $user_data['u_avatar'] = $randomData['u_avatar'];
             $user_data['u_registered_at'] = date('Y-m-d H:i:s');
 
-
             unset($user_data['submit-register']);
             unset($user_data['u_pwd_confirm']);
-
-
-//            $user_data = array(
-//                'u_email' => $this->input->post('email-input'),
-//                'u_pwd' => $this->input->post('pwd-input'),
-//                'u_name' => $this->input->post('name-input'),
-//                'u_surname' => $this->input->post('surname-input'),
-//                'u_dob' => $this->input->post('dob-input'),
-//                'u_country' => $this->input->post('country-input'),
-//                'u_city' => $this->input->post('city-input'),
-//                'u_address' => $this->input->post('address-input'),
-//                'u_post_code' => $this->input->post('post-code-input'),
-//                'u_phone' => $this->input->post('phone-input'),
-
-//            );
 
             if ($this->user_model->registerUser($user_data)) {
 
@@ -124,7 +108,6 @@ class Users_Controller extends CI_Controller
         $this->parser->parse('registration_view', $data);
 
     }
-
 
     public function edit(){
 
@@ -142,20 +125,11 @@ class Users_Controller extends CI_Controller
 
         if ($this->form_validation->run() === TRUE) {
 
-            $user_data = array(
-                'u_email' => $this->input->post('email-input'),
-                'u_pwd' => $this->input->post('pwd-input'),
-                'u_name' => $this->input->post('name-input'),
-                'u_surname' => $this->input->post('surname-input'),
-                'u_dob' => $this->input->post('dob-input'),
-                'u_country' => $this->input->post('country-input'),
-                'u_city' => $this->input->post('city-input'),
-                'u_address' => $this->input->post('address-input'),
-                'u_post_code' => $this->input->post('post-code-input'),
-                'u_phone' => $this->input->post('phone-input'),
-                'u_avatar' => $this->input->post('avatar-input'),
-                'u_updated_at' => date('Y-m-d H:i:s') ,
-            );
+            $user_data = $this->input->post();
+            $user['u_updated_a'] = date('Y-m-d H:i:s');
+            unset($user_data['submit-edit']);
+            unset($user_data['u_pwd_confirm']);
+            
 
             if ($this->user_model->editUserProfile($user_data, $u_email)) {
 
