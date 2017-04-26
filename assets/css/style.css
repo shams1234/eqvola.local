@@ -104,8 +104,7 @@ body, html {
 }
 
 .logout {
-    vertical-align: middle;
-    margin: 1rem 0 0 0;
+
     float: right;
 }
 
@@ -114,13 +113,16 @@ body, html {
 }
 
 .user-name {
-    width: 230px;
+    width: 220px;
     position: relative;
     margin: 0 auto;
 }
 
 .card-container {
-    padding: 15px;
+    padding: 4rem;
+}
+.card-container p span {
+    float: right;
 }
 
 .card-container > p {

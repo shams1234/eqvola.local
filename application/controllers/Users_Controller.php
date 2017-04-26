@@ -27,6 +27,7 @@ class Users_Controller extends CI_Controller
 
 
     public function login() {
+        if ($this->user_model->is_logged_in()) { redirect('profile'); }
 
             if($this->form_validation->run() === TRUE) {
 
@@ -115,7 +116,7 @@ class Users_Controller extends CI_Controller
         $userData = $this->user_model->getUserByEmail($u_email);
 
         if (!$this->user_model->is_logged_in()) {
-            $this->session->set_flashdata('Error', 'You must be logged in first.');
+            $this->session->set_flashdata('Error', 'You have no access to this page.');
             redirect('/');
         }
 

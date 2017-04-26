@@ -3,9 +3,8 @@
         <div class="container">
             <div class="row">
                 <div class="six columns header-title">
-                    <div class="six columns welcome-header">
+                    <div class="twelve columns welcome-header">
                         <h2>Welcome, <?php echo $user['u_name']; ?></h2>
-
 
                         <?php if ($this->session->flashdata('success_edit')) {?>
                             <span class="success notification"><?php echo $this->session->flashdata("success_edit") ;?></span>
@@ -14,9 +13,6 @@
                             <span class="error notification"><?php echo $this->session->flashdata("error_edit") ;?></span>
                         <?php }?>
 
-                    </div>
-                    <div class="six columns">
-                        <a class="logout button" href="<?php echo site_url('logout'); ?>">Logout</a>
                     </div>
                 </div>
             </div>
@@ -31,17 +27,18 @@
                             <div class="user-name">
                                 <h4><?php echo $user['u_name'] . ' ' . $user['u_surname']; ?></h4>
                             </div>
-                            <p><span><b>Email: </b></span><?php echo $user['u_email'] ;?></p>
-                            <p><span><b>Phone: </b></span><?php echo $user['u_phone'] ;?></p>
-                            <p><span><b>Dob: </b></span><?php echo $user['u_dob'] ;?></p>
-                            <p><span><b>Country: </b></span><?php echo $user['u_country'] ;?></p>
-                            <p><span><b>City: </b></span><?php echo $user['u_city'] ;?></p>
-                            <p><span><b>Address: </b></span><?php echo $user['u_address'] ;?></p>
-                            <p><span><b>Post Code: </b></span><?php echo $user['u_post_code'] ;?></p>
-                            <p><span><b>Registered At: </b></span><?php echo $user['u_registered_at'] ;?></p>
+                            <p><b>Email: </b><span><?php echo $user['u_email'] ;?></span></p>
+                            <p><b>Phone: </b><span><?php echo $user['u_phone'] ;?></span></p>
+                            <p><b>Dob: </b><span><?php echo $user['u_dob'] ;?></span></p>
+                            <p><b>Country: </b><span><?php echo $user['u_country'] ;?></span></p>
+                            <p><b>City: </b><span><?php echo $user['u_city'] ;?></span></p>
+                            <p><b>Address: </b><span><?php echo $user['u_address'] ;?></span></p>
+                            <p><b>Post Code: </b><span><?php echo $user['u_post_code'] ;?></span></p>
+                            <p><b>Registered At: </b><span><?php echo $user['u_registered_at'] ;?></span></p>
                         </div>
                     </div>
                     <a class="button" href="<?php echo base_url('edit'); ?>">Edit profile</a>
+                    <a class="logout button" href="<?php echo site_url('logout'); ?>">Logout</a>
                 </div>
                 <div class="six columns">
                     <div class="details">
