@@ -3,12 +3,17 @@ body, html {
 }
 
 .section {
-    margin: 100px 0 100px 0;
+    margin: 50px 0 50px 0;
 }
 
-.registration-link, .back-link {
+.registration-link {
     float: right;
-    margin-top: 12px;
+}
+
+.back-link {
+
+    margin-top: 1rem;
+    float: right;
 }
 
 .notification {

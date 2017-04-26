@@ -20,7 +20,7 @@
 <div class="sbtBtns">
 
     <input class="button-default" type="submit" value="Login" name="submit-login">
-    <?php echo anchor(site_url('registration'),'Need a registration?','class="registration-link"'); ?>
+    <?php echo anchor(site_url('registration'),'Registration','class="button registration-link"'); ?>
 </div>
 
 <?php form_close();?>
