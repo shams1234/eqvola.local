@@ -124,13 +124,42 @@ class Users_Controller extends CI_Controller
         $data['title'] = 'Edit profile';
         $data['main_content'] = 'layouts/edit_form';
 
+
+
+        $config = array(
+            'upload_path' => "./uploads/avatars/",
+            'allowed_types' => "gif|jpg|png|jpeg",
+            'overwrite' => TRUE,
+            'max_size' => "2048000",
+            'max_height' => "768",
+            'max_width' => "1024"
+        );
+        $this->load->library('upload', $config);
+
+
+
+        if ( !$this->upload->do_upload('u_avatar'))
+        {
+
+            $error = array('error' => $this->upload->display_errors());
+        }
+
+        $img_data = $this->upload->data();
+
+        $image = site_url('uploads/avatars/') . $img_data['file_name'];
+
+//        log_message('debug', var_export($image));
+//
+//        exit();
+
         if ($this->form_validation->run() === TRUE) {
 
             $user_data = $this->input->post();
-            $user['u_updated_a'] = date('Y-m-d H:i:s');
+            $user_data['u_updated_at'] = date('Y-m-d H:i:s');
+            $user_data['u_avatar'] = $image;
             unset($user_data['submit-edit']);
             unset($user_data['u_pwd_confirm']);
-            
+
 
             if ($this->user_model->editUserProfile($user_data, $u_email)) {
 
@@ -154,6 +183,5 @@ class Users_Controller extends CI_Controller
         redirect('/');
 
     }
-
 
 }

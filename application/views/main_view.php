@@ -5,7 +5,7 @@
                 <div class="six columns header-title">
                     <div class="twelve columns welcome-header">
                         <h2>Welcome, <?php echo $user['u_name']; ?></h2>
-
+                        <?php echo isset($error) ? $error : ''  ;?>
                         <?php if ($this->session->flashdata('success_edit')) {?>
                             <span class="success notification"><?php echo $this->session->flashdata("success_edit") ;?></span>
                         <?php }?>

@@ -1,6 +1,6 @@
 <h3 class="section-heading">Edit your profile</h3>
 
-<?php echo  form_open('edit');?>
+<?php echo form_open_multipart('edit');?>
 <?php echo isset($register_success) ? '<div class="success notification">' . $register_success . '</div>' : ''; ?>
 <?php echo isset($register_error) ? '<div class="error notification">' . $register_error . '</div>' : ''; ?>
 
