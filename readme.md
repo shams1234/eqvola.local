@@ -1,5 +1,8 @@
 # Simple project
 
+rootFolder must be "eqvola.local"
+
+
 ### USED:
 
 1. PHP-5.6
