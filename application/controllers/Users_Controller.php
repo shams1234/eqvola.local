@@ -14,57 +14,63 @@ class Users_Controller extends CI_Controller
 
     }
 
-    public function index() {
+    public function index()
+    {
 
-        if ($this->user_model->is_logged_in()) { redirect('profile'); }
+        if ($this->user_model->is_logged_in()) {
+            redirect('profile');
+        }
 
-            $data['title'] = 'Login';
-            $data['main_content'] = 'layouts/login_form';
+        $data['title'] = 'Login';
+        $data['main_content'] = 'layouts/login_form';
 
-            $this->parser->parse('login_view', $data);
+        $this->parser->parse('login_view', $data);
 
     }
 
+    public function login()
+    {
+        if ($this->user_model->is_logged_in()) {
+            redirect('profile');
+        }
 
-    public function login() {
-        if ($this->user_model->is_logged_in()) { redirect('profile'); }
+        if ($this->form_validation->run() === TRUE) {
 
-            if($this->form_validation->run() === TRUE) {
+            $u_email = $this->input->post('email-input');
+            $u_pwd = $this->input->post('pwd-input');
 
-                $u_email = $this->input->post('email-input');
-                $u_pwd = $this->input->post('pwd-input');
+            if ($this->user_model->loginUser($u_email, $u_pwd)) {
 
-                if( $this->user_model->loginUser($u_email,$u_pwd)){
+                $session = array('session_id' => md5($u_pwd . $u_email), 'u_email' => $u_email, 'is_logged_in' => 'yes');
 
-                    $session = array( 'session_id' => md5($u_pwd . $u_email),'u_email' => $u_email, 'is_logged_in' => 'yes');
+                $this->session->set_userdata($session);
 
-                    $this->session->set_userdata($session);
-
-                    redirect('profile');
-
-                } else {
-
-                    $this->session->set_flashdata('Error', 'Sorry password or email incorect! Please try again.');
-                    redirect('/');
-
-                }
+                redirect('profile');
 
             } else {
 
-                $data ['errors'] = array(
-                                'email_error' => form_error('email-input','<div class="error notification">','</div>'),
-                                'pwd_error' => form_error('pwd-input','<div class="error notification">','</div>')
-
-                )  ;
-
-                $data['title'] = 'Login';
-                $data['main_content'] = 'layouts/login_form';
-                $this->parser->parse('login_view', $data);
+                $this->session->set_flashdata('Error', 'Sorry password or email incorect! Please try again.');
+                redirect('/');
 
             }
+
+        } else {
+
+            $data ['errors'] = array(
+                'email_error' => form_error('email-input', '<div class="error notification">', '</div>'),
+                'pwd_error' => form_error('pwd-input', '<div class="error notification">', '</div>')
+
+            );
+
+            $data['title'] = 'Login';
+            $data['main_content'] = 'layouts/login_form';
+            $this->parser->parse('login_view', $data);
+
+        }
     }
 
-    public function profile() {
+    public function profile()
+    {
 
         $u_email = $this->session->userdata('u_email');
 
@@ -79,11 +85,14 @@ class Users_Controller extends CI_Controller
 
     }
 
-    public function registration(){
+    public function registration()
+    {
 
         $randomData = $this->user_model->getRandomUserData();
 
-        if ($this->user_model->is_logged_in()) { redirect('profile'); }
+        if ($this->user_model->is_logged_in()) {
+            redirect('profile');
+        }
 
         $data['randomFields'] = $randomData;
         $data['title'] = 'Registration';
@@ -100,9 +109,11 @@ class Users_Controller extends CI_Controller
 
             if ($this->user_model->registerUser($user_data)) {
 
-                $data['register_success'] = 'Registration successful. <a href="'.site_url('login').'">Click here to login</a>.';
+                $data['register_success'] = 'Registration successful. <a href="' . site_url('login') . '">Click here to login</a>.';
 
-            } else { $data['register_error'] = 'Saving data failed. Contact administrator.'; }
+            } else {
+                $data['register_error'] = 'Saving data failed. Contact administrator.';
+            }
 
         }
 
@@ -110,7 +121,8 @@ class Users_Controller extends CI_Controller
 
     }
 
-    public function edit(){
+    public function edit()
+    {
 
         $u_email = $this->session->userdata('u_email');
         $userData = $this->user_model->getUserByEmail($u_email);
@@ -124,8 +136,6 @@ class Users_Controller extends CI_Controller
         $data['title'] = 'Edit profile';
         $data['main_content'] = 'layouts/edit_form';
 
-
-
         $config = array(
             'upload_path' => "./uploads/avatars/",
             'allowed_types' => "gif|jpg|png|jpeg",
@@ -136,10 +146,7 @@ class Users_Controller extends CI_Controller
         );
         $this->load->library('upload', $config);
 
-
-
-        if ( !$this->upload->do_upload('u_avatar'))
-        {
+        if (!$this->upload->do_upload('u_avatar')) {
 
             $error = array('error' => $this->upload->display_errors());
         }
@@ -147,10 +154,6 @@ class Users_Controller extends CI_Controller
         $img_data = $this->upload->data();
 
         $image = site_url('uploads/avatars/') . $img_data['file_name'];
-
-//        log_message('debug', var_export($image));
-//
-//        exit();
 
         if ($this->form_validation->run() === TRUE) {
 
@@ -165,16 +168,19 @@ class Users_Controller extends CI_Controller
 
                 $this->session->set_flashdata('success_edit', 'Editing successful');
 
-            } else {  $this->session->set_flashdata('error_edit', 'Somethig went wrong!'); }
+            } else {
+                $this->session->set_flashdata('error_edit', 'Somethig went wrong!');
+            }
 
-                redirect('profile','refresh');
+            redirect('profile', 'refresh');
         }
 
         $this->parser->parse('edit_view', $data);
 
     }
 
-    public function logout() {
+    public function logout()
+    {
 
         $this->session->unset_userdata('session_id');
         $this->session->unset_userdata('u_email');

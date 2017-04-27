@@ -50,9 +50,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-//for test only
-$route['upload'] = 'Users_Controller/uploadImg';
-//
 $route['edit'] = 'Users_Controller/edit';
 $route['logout'] = 'Users_Controller/logout';
 $route['profile'] = 'Users_Controller/profile';

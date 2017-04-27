@@ -1,6 +1,7 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Created by PhpStorm.
  * UserModel: shs
@@ -16,13 +17,15 @@ class User_Model extends CI_Model
 
     }
 
-    public function getAllUsersFromDb() {
+    public function getAllUsersFromDb()
+    {
 
         return $this->db->get('users')->result_array();
 
     }
 
-    public function loginUser($u_email, $u_pwd) {
+    public function loginUser($u_email, $u_pwd)
+    {
 
         $query = $this->db->get_where('users', array('u_email' => $u_email, 'u_pwd' => $u_pwd));
 
@@ -34,7 +37,8 @@ class User_Model extends CI_Model
         return FALSE;
     }
 
-    public function registerUser($user_data) {
+    public function registerUser($user_data)
+    {
 
         if ($user_data) {
 
@@ -48,8 +52,8 @@ class User_Model extends CI_Model
 
     }
 
-    public function editUserProfile($user_data, $u_email) {
-
+    public function editUserProfile($user_data, $u_email)
+    {
 
         $this->db->where('u_email', $u_email);
         $this->db->update('users', $user_data);
@@ -58,7 +62,8 @@ class User_Model extends CI_Model
 
     }
 
-    public function is_logged_in() {
+    public function is_logged_in()
+    {
 
         $logged_in = $this->session->userdata('is_logged_in');
 
@@ -72,22 +77,23 @@ class User_Model extends CI_Model
 
     }
 
-    public function getRandomUserData () {
+    public function getRandomUserData()
+    {
 
-        $api_url = json_decode( file_get_contents('https://randomuser.me/api/'));
+        $api_url = json_decode(file_get_contents('https://randomuser.me/api/'));
 
         $randomUserData = array(
 
-            'u_avatar' => $api_url -> results[0] -> picture -> large,
-            'u_name' => $api_url -> results[0] -> name -> first,
-            'u_surname' => $api_url -> results[0] -> name -> last,
-            'u_dob' => $api_url -> results[0] -> dob,
-            'u_phone' => $api_url -> results[0] -> phone,
-            'u_city' => $api_url -> results[0] -> location -> city,
-            'u_address' => $api_url -> results[0] -> location -> street,
-            'u_country' => $api_url -> results[0] -> location -> state,
-            'u_post_code' => $api_url -> results[0] -> location -> postcode,
-            'u_email' => $api_url -> results[0] -> email,
+            'u_avatar' => $api_url->results[0]->picture->large,
+            'u_name' => $api_url->results[0]->name->first,
+            'u_surname' => $api_url->results[0]->name->last,
+            'u_dob' => $api_url->results[0]->dob,
+            'u_phone' => $api_url->results[0]->phone,
+            'u_city' => $api_url->results[0]->location->city,
+            'u_address' => $api_url->results[0]->location->street,
+            'u_country' => $api_url->results[0]->location->state,
+            'u_post_code' => $api_url->results[0]->location->postcode,
+            'u_email' => $api_url->results[0]->email,
             'u_updated_at' => date('Y-m-d H:i:s'),
 
         );
@@ -96,13 +102,13 @@ class User_Model extends CI_Model
 
     }
 
-    public function getUserByEmail($u_email) {
+    public function getUserByEmail($u_email)
+    {
 
-        $query = $this->db->get_where('users', array('u_email' => $u_email ));
+        $query = $this->db->get_where('users', array('u_email' => $u_email));
 
         return $query->row_array();
 
     }
-
 
 }

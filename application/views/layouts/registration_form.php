@@ -15,7 +15,6 @@
 </div>
 <div class="row">
 
-
     <div class="four columns">
 
         <div class="u-full-width">
